@@ -1,6 +1,39 @@
 from tkinter import *
 from config_enums import *
 
+reps = 0
+timer: str | None = None
+
+
+def start_timer():
+    global reps
+    reps += 1
+    long_break_secs = LONG_BREAK_MIN * 60
+    short_break_secs = SHORT_BREAK_MIN * 60
+    work_secs = WORK_MIN * 60
+    if reps % 8 == 0:
+        countdown(long_break_secs)
+        head_label.config(text="Break", fg=RED)
+    elif reps % 2 == 0:
+        countdown(short_break_secs)
+        head_label.config(text="Break", fg=PINK)
+    else:
+        countdown(work_secs)
+        head_label.config(text="Work", fg=GREEN)
+
+
+def countdown(count):
+    minutes, seconds = divmod(count, 60)
+    canvas.itemconfig(timer_count, text=f"{minutes:02d}:{seconds:02d}")
+    if count > 0:
+        global timer
+        timer = window.after(1000, countdown, count - 1)
+    else:
+        start_timer()
+        check_marks = "✔" * (reps // 2)
+        check_marks_label.config(text=check_marks)
+
+
 window = Tk()
 window.title("Pomodoro Timer")
 window.config(padx=100, pady=50, bg=YELLOW)
