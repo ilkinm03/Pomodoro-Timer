@@ -22,4 +22,8 @@ start_button.grid(column=0, row=2)
 reset_button = Button(text="Reset")
 reset_button.grid(column=2, row=2)
 
+check_marks_label = Label()
+check_marks_label.config(bg=YELLOW, fg=GREEN, font=(FONT_NAME, 12, "bold"))
+check_marks_label.grid(column=1, row=3)
+
 window.mainloop()
