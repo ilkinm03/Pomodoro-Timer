@@ -5,6 +5,13 @@ reps = 0
 timer: str | None = None
 
 
+def reset_timer():
+    window.after_cancel(timer)
+    head_label.config(text="Timer", fg=GREEN)
+    canvas.itemconfig(timer_count, text="00:00")
+    check_marks_label.config(text="")
+
+
 def start_timer():
     global reps
     reps += 1
